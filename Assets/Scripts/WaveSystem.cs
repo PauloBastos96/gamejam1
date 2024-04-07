@@ -64,6 +64,7 @@ public class WaveSystem : MonoBehaviour
         }
         // Increase bandit count and spawn rate for each new wave
         currentBanditsCount += Mathf.RoundToInt(increaseBanditsCount * currentWave);
+        currentBanditsCount = Mathf.Clamp(currentBanditsCount, 1, 10);
         timeBetweenWaves -= increaseSpawnRate * currentWave;
         // Ensure minimum bandit count and spawn rate
         currentBanditsCount = Mathf.Max(currentBanditsCount, initialBanditsCount);
