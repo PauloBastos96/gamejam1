@@ -4,32 +4,16 @@ using UnityEngine;
 
 public class SkyScroll : MonoBehaviour
 {
-    // Start is called before the first frame update
-    private void Start()
-    {
-        
-    }
+    [SerializeField] float m_ScrollSpeed = 1.0f;
+    [SerializeField] float m_SpawnPoint = -19f;
 
     // Update is called once per frame
     private void Update()
     {
-        transform.position += Vector3.left * Time.deltaTime;
-        if (transform.position.x < -19.2f)
+        transform.position += m_ScrollSpeed * Vector3.left * Time.deltaTime;
+        if (transform.position.x < m_SpawnPoint)
         {
-            SpawnSky();
-            DestroySky();
+            gameObject.transform.position = new Vector3(0, 0, 1);
         }
-
-    }
-
-    private void SpawnSky()
-    {
-        GameObject sky = Instantiate(gameObject);
-        sky.transform.position = new Vector3(0, 0, 0);
-    }
-
-    private void DestroySky()
-    {
-        Destroy(gameObject);
     }
 }
