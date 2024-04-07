@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class HeroKnight : MonoBehaviour {
 
     [SerializeField] float      m_jumpForce = 7.5f;
+    [SerializeField] int        m_Lives = 4;
+    [SerializeField] Sprite[]   m_array_sprite;
+    [SerializeField] Image      m_canvas_image;
 
     private Animator            m_animator;
     private Rigidbody2D         m_body2d;
@@ -107,5 +111,30 @@ public class HeroKnight : MonoBehaviour {
     public void DisableJump(float duration)
     {
         m_DisableTimer = duration;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            m_Lives--;
+            m_animator.SetTrigger("Hurt");
+            switch (m_Lives)
+            {
+                case 3:
+                    m_canvas_image.sprite = m_array_sprite[m_array_sprite.Length - 1];
+                    break;
+                case 2:
+                    m_canvas_image.sprite = m_array_sprite[m_array_sprite.Length - 2];
+                    break;
+                case 1:
+                    m_canvas_image.sprite = m_array_sprite[m_array_sprite.Length - 3];
+                    break;
+                default:
+                    m_canvas_image.sprite = m_array_sprite[m_array_sprite.Length - 4];
+                    m_animator.SetTrigger("Death");
+                    break;
+            }
+        }
     }
 }
