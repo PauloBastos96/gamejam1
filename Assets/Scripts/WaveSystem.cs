@@ -14,7 +14,8 @@ public class WaveSystem : MonoBehaviour
 
     [SerializeField] int currentWave = 0;
     [SerializeField] int currentBanditsCount = 2;
-
+    
+    private PlayerController playerController;
 
     void Start()
     {
@@ -22,11 +23,12 @@ public class WaveSystem : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         if (gameManager == null)
             Debug.LogError("GameManager not found in the scene.");
+        // Find the PlayerController in the scene
+        playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
     }
 
     void Update()
     {
-
         // Start the wave system
         StartCoroutine(StartWave());
     }
@@ -36,7 +38,8 @@ public class WaveSystem : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(timeBetweenWaves);
-            SpawnBandits();
+            if (playerController.GetLives() > 0)
+                SpawnBandits();
         }
     }
 

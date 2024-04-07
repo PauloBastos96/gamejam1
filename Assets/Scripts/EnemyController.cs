@@ -29,7 +29,9 @@ public class EnemyController : MonoBehaviour
     {
         if (transform.position.x < -50)
             Destroy(gameObject);
-        if (Vector3.Distance(transform.position, m_player.transform.position) > m_attackRange)
+        if (m_player == null)
+            Destroy(gameObject);
+        if (m_player && Vector3.Distance(transform.position, m_player.transform.position) > m_attackRange)
         {
             m_body2d.AddForce(Vector3.left * m_speed * Time.deltaTime, ForceMode2D.Force);
         }
@@ -75,7 +77,7 @@ public class EnemyController : MonoBehaviour
 
     private bool CanAttack()
     {
-        if (Vector3.Distance(transform.position, m_player.transform.position) < m_attackRange && !m_isAttacking && m_Lives > 0)
+        if (m_player && Vector3.Distance(transform.position, m_player.transform.position) < m_attackRange && !m_isAttacking && m_Lives > 0)
             return true;
         return false;
     }

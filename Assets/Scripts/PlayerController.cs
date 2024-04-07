@@ -140,6 +140,10 @@ public class PlayerController : MonoBehaviour {
         m_DisableTimer = duration;
     }
 
+    private void OnDestroy()
+    {
+        GameObject.Find("GameController").GetComponent<PauseManager>().TogglePause();
+    }
 
     /// <summary>
     /// Lose a life when attacked
@@ -162,6 +166,7 @@ public class PlayerController : MonoBehaviour {
             default:
                 m_canvas_image.sprite = m_array_sprite[m_array_sprite.Length - 4];
                 m_animator.SetTrigger("Death");
+                Destroy(gameObject, 2.0f);
                 break;
         }
     }
