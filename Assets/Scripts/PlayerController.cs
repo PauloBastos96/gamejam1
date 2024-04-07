@@ -17,23 +17,6 @@ public class HeroKnight : MonoBehaviour {
     private int                 m_ColCount = 0;
     private float               m_DisableTimer;
 
-    private bool State()
-    {
-        if (m_DisableTimer > 0)
-            return false;
-        return m_ColCount > 0;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        m_ColCount++;
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        m_ColCount--;
-    }
-
     // Use this for initialization
     void Start ()
     {
@@ -105,6 +88,27 @@ public class HeroKnight : MonoBehaviour {
     }
 
     /// <summary>
+    /// Check if the player is in a state where he can jump
+    /// </summary>
+    /// <returns></returns>
+    private bool State()
+    {
+        if (m_DisableTimer > 0)
+            return false;
+        return m_ColCount > 0;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        m_ColCount++;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        m_ColCount--;
+    }
+
+    /// <summary>
     /// Disable jump for a certain duration
     /// </summary>
     /// <param name="duration">The duration for which the player can't jump</param>
@@ -113,6 +117,10 @@ public class HeroKnight : MonoBehaviour {
         m_DisableTimer = duration;
     }
 
+    /// <summary>
+    /// Lose a life when colliding with an enemy
+    /// </summary>
+    /// <param name="collision">The colliding object</param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")

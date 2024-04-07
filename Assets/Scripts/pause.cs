@@ -10,7 +10,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetButtonDown("Cancel"))
         {
             TogglePause();
         }
