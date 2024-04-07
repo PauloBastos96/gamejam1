@@ -7,7 +7,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int    m_Lives = 4;
     [SerializeField] private float  m_speed = 1.0f;
     [SerializeField] private float  m_attackDelay = 1.0f;
-    [SerializeField] private float  m_attackSpeed = 1.0f;
     [SerializeField] private float  m_attackRange = 1.5f;
 
     private Animator            m_animator;
@@ -62,6 +61,8 @@ public class EnemyController : MonoBehaviour
         if (m_Lives <= 0)
         {
             m_animator.SetTrigger("Death");
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            m_body2d.constraints = RigidbodyConstraints2D.FreezePositionY;
             Destroy(gameObject, 2f);
         }
     }
