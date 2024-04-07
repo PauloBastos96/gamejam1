@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Lives: 4
-  m_speed: 1
+  m_speed: 400
   m_attackDelay: 1
   m_attackSpeed: 1
   m_attackRange: 1.5

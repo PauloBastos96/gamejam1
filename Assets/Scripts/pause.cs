@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel; // Referência ao painel de pausa
 
     private bool isPaused = false;
+
+    private void OnEnable()
+    {
+        TogglePause();
+    }
 
     void Update()
     {
@@ -16,7 +22,7 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    void TogglePause()
+    public void TogglePause()
     {
         isPaused = !isPaused;
 
@@ -32,5 +38,15 @@ public class PauseManager : MonoBehaviour
             Debug.Log("Jogo despausado.");
             pausePanel.SetActive(false); // Desativa o painel de pausa
         }
+    }
+
+    public void Restart()
+    {
+        if (isPaused)
+        {
+            Time.timeScale = 1f;
+            pausePanel.SetActive(false);
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

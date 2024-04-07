@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
         if (Vector3.Distance(transform.position, m_player.transform.position) > m_attackRange)
         {
-            m_body2d.AddForce(Vector3.left * m_speed, ForceMode2D.Force);
+            m_body2d.AddForce(Vector3.left * m_speed * Time.deltaTime, ForceMode2D.Force);
         }
         else
             m_animator.SetInteger("AnimState", 0);
